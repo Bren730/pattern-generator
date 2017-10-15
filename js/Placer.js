@@ -1,25 +1,75 @@
 class Placer {
 	
-	constructor(particleCount) {
+	constructor(minRadius, maxRadius) {
 
-		this.particleCount = particleCount
+		this.minRadius = minRadius
+		this.maxRadius = maxRadius
+		this.placingScaleFactor = 1.0
 
 	}
 
-	getPosition(i) {
+	getMaximumRadius() {
+
+		return this.maxRadius
+		
+	}
+
+	setMaximumRadius(radius) {
+
+		this.maxRadius = radius
+
+	}
+
+	getPosition(i, particleCount) {
+
+		var r = new SVG.Number(i * this.getMaximumRadius())
 
 		return [this.getX(i), this.getY(i)]
 	}
 
-	getX(i) {
+	getX(i, particleCount) {
 
-		return (.2 * i * Math.cos(3.05 * i))
+		var x = this.maxRadius * (.2 * i * Math.cos(3.05 * i))
+
+		return x
+
+	}
+
+	getY(i, particleCount) {
+
+		var y = new SVG.Number((this.maxRadius * (.2 * i * Math.sin(3.05 * i))).toString() + 'mm' )
+
+		return y
 
 	}
 
-	getY(i) {
+	getNormalizedDistanceFromCenter(i, particleCount) {
 
-		return (.2 * i * Math.sin(3.05 * i))
+		return this.getDistanceFromCenter(i, particleCount) / this.maxRadius
 
 	}
+	
+	getNormalizedDistanceInRange(i) {
+
+
+	}
+
+	getDistanceFromCenter(i, particleCount) {
+
+		return Math.sqrt( ( Math.pow(this.getX(i, particleCount), 2) + Math.pow(this.getY(i, particleCount), 2) ) )
+
+	}
+
+	getMinimumRadius() {
+
+		return this.minRadius
+
+	}
+
+	setMinimumRadius(radius) {
+
+		this.minRadius = radius
+
+	}
+
 }

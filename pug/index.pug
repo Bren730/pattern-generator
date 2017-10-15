@@ -10,11 +10,28 @@ body(ontouchstart)
 	#graph-overlay
 		h1 Pattern generator
 		.input
+			h2 Unit
+			select#input-unit
+				option(value="mm") millimeters
+				option(value="px") pixels
+		.input
+			h2 Placing algorithm
+			select#input-placer
+		.input
 			h2 Count
-			input#input-particle-count(type="range" min="0" max="12000" step="1")
+			input#input-particle-count(type="range" min="0" max="600" step="1")
 		.input
 			h2 Size
-			input#input-size(type="range" min="0" max="20" step="0.1")
+			input#input-particle-size(type="range" min="0" max="20" step="0.1")
+		.input
+			h2 Minimum radius
+			input#input-radius-min(type="range" min="0" max="50" step="0.1" value="0")
+		.input
+			h2 Maximum radius
+			input#input-radius-max(type="range" min="0" max="300" step="0.1" value="300")
+		.input
+			h2 Size equation
+			input#input-particle-size-equation(type="text")
 	#graph
 
 	script(src='static/js/vendor.js')
