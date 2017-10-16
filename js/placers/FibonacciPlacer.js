@@ -1,12 +1,14 @@
 
 class FibonacciPlacer extends Placer {
 
-	constructor(minRadius, maxRadius) {
+	constructor(minPatternRadius, maxPatternRadius) {
 
-		super(minRadius, maxRadius)
+		super(minPatternRadius, maxPatternRadius)
 
-		this.minRadius = minRadius
-		this.maxRadius = maxRadius
+		console.log('FibonacciPlacer', minPatternRadius, maxPatternRadius)
+
+		this.minPatternRadius = minPatternRadius
+		this.maxPatternRadius = maxPatternRadius
 
 		this.phi = (1 + Math.sqrt(5)) / 2.0
 		this.angle = 2 * Math.PI * (1 - (1 / this.phi))
@@ -17,7 +19,7 @@ class FibonacciPlacer extends Placer {
 
 		var perc = i / particleCount
 		
-		var r = perc * this.getMaximumRadius()
+		var r = perc * this.getMaxPatternRadius()
 		var angle = this.angle * i
 
 		var x = Math.cos(angle) * r
@@ -28,7 +30,7 @@ class FibonacciPlacer extends Placer {
 
 	getR(i, particleCount) {
 
-		return ( this.getMaximumRadius() * (i / particleCount))
+		return ( this.getMaxPatternRadius() * (i / particleCount))
 
 	}
 

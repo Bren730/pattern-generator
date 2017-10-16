@@ -1,35 +1,47 @@
 class Placer {
 	
-	constructor(minRadius, maxRadius) {
+	constructor(minPatternRadius, maxPatternRadius) {
 
-		this.minRadius = minRadius
-		this.maxRadius = maxRadius
+		this.minPatternRadius = minPatternRadius
+		this.maxPatternRadius = maxPatternRadius
 		this.placingScaleFactor = 1.0
 
 	}
 
-	getMaximumRadius() {
+	getMinPatternRadius() {
 
-		return this.maxRadius
+		return this.minPatternRadius
+
+	}
+
+	setMinPatternRadius(radius) {
+
+		this.minPatternRadius = radius
+
+	}
+
+	getMaxPatternRadius() {
+
+		return this.maxPatternRadius
 		
 	}
 
-	setMaximumRadius(radius) {
+	setMaxPatternRadius(radius) {
 
-		this.maxRadius = radius
+		this.maxPatternRadius = radius
 
 	}
 
 	getPosition(i, particleCount) {
 
-		var r = new SVG.Number(i * this.getMaximumRadius())
+		var r = new SVG.Number(i * this.getMaxPatternRadius())
 
 		return [this.getX(i), this.getY(i)]
 	}
 
 	getX(i, particleCount) {
 
-		var x = this.maxRadius * (.2 * i * Math.cos(3.05 * i))
+		var x = this.maxPatternRadius * (.2 * i * Math.cos(3.05 * i))
 
 		return x
 
@@ -37,7 +49,7 @@ class Placer {
 
 	getY(i, particleCount) {
 
-		var y = new SVG.Number((this.maxRadius * (.2 * i * Math.sin(3.05 * i))).toString() + 'mm' )
+		var y = new SVG.Number((this.maxPatternRadius * (.2 * i * Math.sin(3.05 * i))).toString() + 'mm' )
 
 		return y
 
@@ -45,7 +57,7 @@ class Placer {
 
 	getNormalizedDistanceFromCenter(i, particleCount) {
 
-		return this.getDistanceFromCenter(i, particleCount) / this.maxRadius
+		return this.getDistanceFromCenter(i, particleCount) / this.maxPatternRadius
 
 	}
 	
@@ -57,18 +69,6 @@ class Placer {
 	getDistanceFromCenter(i, particleCount) {
 
 		return Math.sqrt( ( Math.pow(this.getX(i, particleCount), 2) + Math.pow(this.getY(i, particleCount), 2) ) )
-
-	}
-
-	getMinimumRadius() {
-
-		return this.minRadius
-
-	}
-
-	setMinimumRadius(radius) {
-
-		this.minRadius = radius
 
 	}
 

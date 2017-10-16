@@ -20,18 +20,27 @@ body(ontouchstart)
 		.input
 			h2 Count
 			input#input-particle-count(type="range" min="0" max="600" step="1")
+			span#output-particle-count 
 		.input
-			h2 Size
-			input#input-particle-size(type="range" min="0" max="20" step="0.1")
+			h2 Maximum particle size
+			input#input-particle-size-max(type="range" min="0" max="20" step="0.1")
+			span#output-particle-size-max 
 		.input
-			h2 Minimum radius
-			input#input-radius-min(type="range" min="0" max="50" step="0.1" value="0")
+			h2 Minimum particle size
+			input#input-particle-size-min(type="range" min="0" max="50" step="0.1" value="0")
+			span#output-particle-size-min 
 		.input
-			h2 Maximum radius
-			input#input-radius-max(type="range" min="0" max="300" step="0.1" value="300")
+			h2 Maximum pattern radius
+			input#input-pattern-radius-max(type="range" min="0" max="500" step="0.1" )
+			span#output-pattern-radius-max 
+		.input
+			h2 Minimum pattern radius
+			input#input-pattern-radius-min(type="range" min="0" max="250" step="0.1" )
+			span#output-pattern-radius-min 
 		.input
 			h2 Size equation
 			input#input-particle-size-equation(type="text")
+		button#export-graph Click me!
 	#graph
 
 	script(src='static/js/vendor.js')

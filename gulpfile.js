@@ -85,6 +85,7 @@ var defaultOptions = {
 
   	var files = [
   	'./node_modules/jquery/dist/jquery.min.js',
+    './node_modules/file-saver/FileSaver.js',
   	'./node_modules/jquery-inview/jquery.inview.min.js',
   	'./node_modules/velocity-animate/velocity.min.js',
   	'./vendor/modernizr-custom/modernizr-custom.js',
