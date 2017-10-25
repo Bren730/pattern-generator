@@ -6,13 +6,24 @@ class Generator {
 
 		this.graphId = 'graph'
 		this.graphElement = document.getElementById(this.graphId)
-		this.graph = SVG(this.graphId).size("100vw", "100vh")
 
 		this.graphWidth = this.graphElement.offsetWidth;
 		this.graphHeight = this.graphElement.offsetHeight;
 		console.log("graphWidth", this.graphWidth)
 
-		this.graph.viewbox((-0.5 * this.graphWidth), -0.5 * this.graphHeight, this.graphWidth, this.graphHeight)
+		var viewBoxWidthPx = new SVG.Number(this.graphWidth.toString() + 'px')
+		var viewBoxWidthMm = viewBoxWidthPx.to('mm')
+
+		// SVG base element size
+		this.graph = SVG(this.graphId).size('100mm', '100mm')
+
+		// SVG viewBox must be the same numbers as the SVG size, but unitless
+		this.graph.viewbox(-50, -50, 100, 100)
+
+		var min50 = new SVG.Number('-50mm')
+		var max50 = new SVG.Number('50mm')
+
+		// this.graph.viewbox(min50, min50, max50, max50)
 
 		this.particleCount = 0
 		this.prevParticleCount = this.particleCount
@@ -235,23 +246,28 @@ class Generator {
 			var pos = this.placer.getPosition(i, this.particleCount)
 			var size = this.sizer.getParticleSize(pos[0], pos[1])
 
-			pos = [new SVG.Number(pos[0].toString() + 'mm'), new SVG.Number(pos[1].toString() + 'mm')]
-			size = new SVG.Number(size.toString() + 'mm')
+			pos = [pos[0], pos[1]]
 
 			if (this.particles[i] == null) {
 
 				// Instantiating a circle uses diameter instead of radius, therefore we multiply by 2
-				circle = this.graph.circle(size * 2)
+				circle = this.graph.circle(size)
 				this.particles.push(circle)
 
 			} else {
 
 				circle = this.particles[i]
-				circle.radius(size)
 
 			}
 
-			circle.attr({cx: pos[0], cy: pos[1]})
+			circle.center(pos[0], pos[1])
+			circle.size(size, size)
+
+			// circle.attr({
+			// 	cx: pos[0], 
+			// 	cy: pos[1],
+			// 	radius: size,
+			// 	fill: '#BBB'})
 
 		}
 

@@ -18,8 +18,9 @@ class FibonacciPlacer extends Placer {
 	getPosition(i, particleCount) {
 
 		var perc = i / particleCount
+		var sqrtPerc = Math.sqrt(perc)
 		
-		var r = perc * this.getMaxPatternRadius()
+		var r = sqrtPerc * this.getMaxPatternRadius()
 		var angle = this.angle * i
 
 		var x = Math.cos(angle) * r
