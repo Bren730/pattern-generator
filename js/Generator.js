@@ -7,12 +7,24 @@ class Generator {
 		this.graphId = 'graph'
 		this.graphElement = document.getElementById(this.graphId)
 
-		this.graphWidth = this.graphElement.offsetWidth;
-		this.graphHeight = this.graphElement.offsetHeight;
-		console.log("graphWidth", this.graphWidth)
+		this.pxPerMm = 96.0 / 25.4
 
-		var viewBoxWidthPx = new SVG.Number(this.graphWidth.toString() + 'px')
-		var viewBoxWidthMm = viewBoxWidthPx.to('mm')
+		this.graphWidthPx = this.graphElement.offsetWidth
+		this.graphHeightPx = this.graphElement.offsetHeight
+		this.graphWidthMm = this.graphWidthPx / this.pxPerMm
+		this.graphHeightMm = this.graphHeightPx / this.pxPerMm
+
+		this.screenWidthPx = screen.width
+		this.screenHeightPx = screen.height
+		this.screenWidthMm = this.screenWidthPx / this.pxPerMm
+		this.screenHeightMm = this.screenHeightPx / this.pxPerMm
+		this.screenDiagMm = Math.sqrt(Math.pow(this.screenWidthMm, 2) + Math.pow(this.screenHeightMm, 2))
+
+		console.log("This screens resolution is:", this.screenWidthPx, 'by', this.screenHeightPx, 'pixels')
+		console.log("This screen's dimensions should be", this.screenWidthMm.toFixed(2), 'by', this.screenHeightMm.toFixed(2), 'mm')
+		console.log("This screen's diagonal should be", this.screenDiagMm.toFixed(2), 'mm, or', (this.screenDiagMm / 25.4).toFixed(2), 'inches')
+
+		console.log("Graph width mm:", this.graphWidthMm)
 
 		// SVG base element size
 		this.graph = SVG(this.graphId).size('100mm', '100mm')
@@ -38,6 +50,8 @@ class Generator {
 
 		this.bindEventListeners()
 
+		this.setInitialParameters()
+
 		this.invalidateGraph()
 
 	}
@@ -52,6 +66,8 @@ class Generator {
 
 		this.maxParticleSize = radius
 		this.sizer.setMaxParticleSize(radius)
+
+		this.maxParticleSizeInputElement.value = radius
 		this.maxParticleSizeOutputElement.textContent = radius
 
 		console.log('Max particle size set to:', this.maxParticleSize)
@@ -68,6 +84,8 @@ class Generator {
 
 		this.minParticleSize = radius
 		this.sizer.setMinParticleSize(radius)
+
+		this.minParticleSizeInputElement.value = radius
 		this.minParticleSizeOutputElement.textContent = radius
 
 		console.log('Min particle size set to:', this.minParticleSize)
@@ -83,7 +101,10 @@ class Generator {
 	setParticleCount(particleCount) {
 
 		this.particleCount = particleCount
+
+		this.particleCountInputElement.value = particleCount
 		this.particleCountOutputElement.textContent = particleCount
+
 		console.log('Particle count set to:', this.particleCount)
 
 	}
@@ -112,6 +133,7 @@ class Generator {
 		this.placer.setMaxPatternRadius(this.maxPatternRadius)
 		this.sizer.setMaxPatternRadius(this.maxPatternRadius)
 
+		this.maxPatternRadiusInputElement.value = maxPatternRadius
 		this.maxPatternRadiusOutputElement.textContent = maxPatternRadius
 
 		console.log('Max pattern radius set to:', this.maxPatternRadius)
@@ -130,6 +152,7 @@ class Generator {
 		this.placer.setMinPatternRadius(this.minPatternRadius)
 		this.sizer.setMinPatternRadius(this.minParticleSize)
 
+		this.minPatternRadiusInputElement.value = minPatternRadius
 		this.minPatternRadiusOutputElement.textContent = minPatternRadius
 
 		console.log('Min pattern radius set to:', this.minPatternRadius)
@@ -235,6 +258,12 @@ class Generator {
 			return this.exportGraph()
 
 		}
+
+	}
+
+	setInitialParameters() {
+
+		this.setMaxPatternRadius(this.graphWidthMm / 2)
 
 	}
 
